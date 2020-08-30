@@ -10,7 +10,18 @@
        タイトル：<input type="text" name='title' class='input' required><br>
        <br>
        <button type='submit' class='submit'>ボード作成</button>
-    </form>
+      </form>
+      <ul class="main-list">
+          <% boardList.forEach(function(boardItem) { %>
+              <li class="main-list__item">
+                  <div class="board">
+                      <p class="board__title"><%= boardItem.title %></p>
+                      <p class="board__date"><%= boardItem.created_at %></p>
+                  </div>
+              </li>
+          <% }); %>
+      </ul>
+  </div>
    </div>
   </body>
 </html>
