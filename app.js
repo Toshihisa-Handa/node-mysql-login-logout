@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+// view engine setup(ここでviewsフォルダがres.render()の第一引数で使用される紐付けをしている。ejsにしているのもここで指定)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
