@@ -14,9 +14,20 @@ router.post('/',(req,res,next)=>{
     var email = req.body.email;
     var password = req.body.password;
     var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-    var query = 'INSERT INTO users (user_name, email, password, created_at) VALUES(?, ?, ?, ?)';
-    connection.query(query,[userName, email, password, createdAt], (err,rows)=>{
-        res.redirect('/login');
+    var emailExistsQuery = 'SELECT * FROM users WHERE email = "' + email + '" LIMIT 1';
+    var registerQuery = 'INSERT INTO users (user_name, email, password, created_at) VALUES(?, ?, ?, ?)';
+    connection.query(emailExistsQuery, (err,rows)=>{
+        var emailExists = email.length;
+        if(emailExists){
+            res.render('register',{
+                title:'新規会員登録',
+                emailExists:'既に登録されているメールアドレスです'
+            });
+        }else{
+            connection.query(registerQuery,[userName, email, password, createdAt],(err, rows)=>{
+                res.redirect('/login');
+            });
+        };
     });
 });
 
