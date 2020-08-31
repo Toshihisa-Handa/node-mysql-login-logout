@@ -24,7 +24,7 @@ router.post('/', (req, res, next)=> {
           emailExists: '既に登録されているメールアドレスです'
         });
       } else {
-        connection.query(registerQuery, function(err, rows) {
+        connection.query(registerQuery, (err, rows)=> {
           res.redirect('/login');
         });
       }
