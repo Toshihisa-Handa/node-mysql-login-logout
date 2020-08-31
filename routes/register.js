@@ -9,16 +9,15 @@ router.get('/', (req,res,next)=>{
     });
 });
 
-
-router.post('/', function(req, res, next) {
-  var userName = req.body.user_name;
-  var email = req.body.email;
-  var password = req.body.password;
-  var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-  var query = 'INSERT INTO users (user_name, email, password, created_at) VALUES ("' + userName + '", ' + '"' + email + '", ' + '"' + password + '", ' + '"' + createdAt + '")';
-  connection.query(query, function(err, rows) {
-    res.redirect('/login');
-  });
+router.post('/',(req,res,next)=>{
+    var userName = req.body.user_name;
+    var email = req.body.email;
+    var password = req.body.password;
+    var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
+    var query = 'INSERT INTO users (user_name, email, password, created_at) VALUES(?, ?, ?, ?)';
+    connection.query(query,[userName, email, password, createdAt], (err,rows)=>{
+        res.redirect('/login');
+    });
 });
 
 module.exports = router;
