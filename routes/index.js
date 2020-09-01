@@ -8,7 +8,8 @@ var connection = require('../mysqlConnection');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   //var query = 'SELECT * FROM boards'; // ←このやり方だと「2020年08月30日 13時52分45秒」こうではなく「2020-08-30T04:53:50.000Z」こう表示される。
-  var query = 'SELECT *, DATE_FORMAT(created_at, \'%Y年%m月%d日 %k時%i分%s秒\') AS created_at FROM boards';
+  // var query = 'SELECT *, DATE_FORMAT(created_at, \'%Y年%m月%d日 %k時%i分%s秒\') AS created_at FROM boards';
+  var query = 'SELECT B.board_id, B.user_id, B.title, ifnull(U.user_name, \'名無し\') AS user_name, DATE_FORMAT(B.created_at, \'%Y年%m月%d日 %k時%i分%s秒\') AS created_at FROM boards B LEFT OUTER JOIN users U ON B.user_id = U.user_id ORDER BY B.created_at DESC'; // 変更
   connection.query(query, function(err, rows) {
     console.log(rows);
     res.render('index', { 
