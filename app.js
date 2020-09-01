@@ -11,6 +11,8 @@ var boardsRouter = require('./routes/boards');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 
+var setUser = require('./setUser');
+
 var app = express();
 
 // view engine setup(ここでviewsフォルダがres.render()の第一引数で使用される紐付けをしている。ejsにしているのもここで指定)
@@ -30,9 +32,9 @@ app.use(session({
 
 
 
-app.use('/', indexRouter);
+app.use('/', setUser, indexRouter);
 app.use('/users', usersRouter);
-app.use('/boards', boardsRouter);
+app.use('/boards', setUser, boardsRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
