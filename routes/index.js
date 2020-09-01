@@ -20,9 +20,10 @@ router.get('/', function(req, res, next) {
 
 router.post('/', (req,res,next)=>{
   var title = req.body.title;
+  var userId = req.session.user_id? req.session.user_id: 0;
   var createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
-  var query = 'INSERT INTO boards (title, created_at) VALUES (?,?)';//素でMySQLを書くのと違い、文字列を+を使って結合します。
-  connection.query(query,[title, createdAt],(err,rows)=>{
+  var query = 'INSERT INTO boards (user_id,title, created_at) VALUES (?,?,?)';//素でMySQLを書くのと違い、文字列を+を使って結合します。
+  connection.query(query,[userId, title, createdAt],(err,rows)=>{
     res.redirect('/');
   });
 });
