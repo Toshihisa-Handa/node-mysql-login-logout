@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var engine = require('ejs-locals');//ejs-localsを使えるようにapp.jsに設定
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -18,6 +19,7 @@ var setUser = require('./setUser');
 var app = express();
 
 // view engine setup(ここでviewsフォルダがres.render()の第一引数で使用される紐付けをしている。ejsにしているのもここで指定)
+app.engine('ejs', engine);//ejs-localsを使えるようにapp.jsに設定
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
