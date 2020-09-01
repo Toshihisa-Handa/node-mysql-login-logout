@@ -23,10 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret:'keyboard cat',
+  secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true
 }));
+
 
 
 app.use('/', indexRouter);
